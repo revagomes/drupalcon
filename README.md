@@ -1,4 +1,4 @@
-Drupalcon
+DrupalCon
 =========
 
 Android application for information about a DrupalCon, initially built for DrupalCon Prague 2013.
