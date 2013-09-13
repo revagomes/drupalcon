@@ -173,6 +173,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor sessionCursor = db.rawQuery(sessionsQuery, null);
 
+        int currentDate = 0;
+
         // Loop through all session results.
         if (sessionCursor.moveToFirst()) {
             do {
@@ -193,6 +195,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     sessionCursor.getInt(9),
                     speakerList
                 );
+
+                // Add slot item, but only if special is not 1.
+                int sessionDate = session.getStartDate();
+                if (sessionDate != currentDate) {
+                    currentDate = sessionDate;
+                    if (session.getSpecial() != 1) {
+                        // Add additional row item so we can slot item rows. We set special to 2.
+                        Session timeItem = new Session(2, session.getStartDate(), session.getEndDate());
+                        sessionList.add(timeItem);
+                    }
+                }
 
                 // Add session to list.
                 sessionList.add(session);

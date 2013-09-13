@@ -27,7 +27,9 @@
     <!-- program_list.xml -->
     <dimen name="day_height">40dp</dimen>
     <dimen name="day_text_size">20sp</dimen>
+    <dimen name="session_divider_height">5dp</dimen>
     <dimen name="no_sessions_padding_top">10dp</dimen>
+    <dimen name="favorites_star_session">30dp</dimen>
 
     <!-- location.xml -->
     <dimen name="location_padding_bottom">10dp</dimen>

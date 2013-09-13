@@ -60,17 +60,14 @@
 
                     </RelativeLayout>
 
-                    <include layout="@layout/separator" />
-
                     <ListView
                             android:id="@+id/session_list_day_1"
-                            android:paddingTop="@dimen/global_small_padding"
                             android:paddingLeft="@dimen/global_left_padding"
                             android:paddingRight="@dimen/global_right_padding"
                             xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:dividerHeight="@dimen/divider_height"
+                            android:dividerHeight="@dimen/session_divider_height"
                             android:fadingEdge="none"
-                            android:divider="@color/grey"
+                            android:divider="@color/global_background"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent" />
 

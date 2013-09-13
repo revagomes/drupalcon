@@ -91,7 +91,7 @@ public class SpeakerListAdapter extends BaseAdapter implements View.OnClickListe
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     holder.speaker.setTextColor(context.getResources().getColor(R.color.white));
-                    holder.speaker_item.setBackgroundColor(context.getResources().getColor(R.color.dark_brown));
+                    holder.speaker_item.setBackgroundColor(context.getResources().getColor(R.color.press_row));
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:

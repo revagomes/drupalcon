@@ -127,12 +127,12 @@ public class SessionListSmallAdapter extends BaseAdapter implements OnClickListe
                 case MotionEvent.ACTION_DOWN:
                     holder.title.setTextColor(context.getResources().getColor(R.color.white));
                     holder.time.setTextColor(context.getResources().getColor(R.color.white));
-                    holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.session));
+                    holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.press_row));
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
-                    holder.title.setTextColor(context.getResources().getColor(R.color.text_dark));
-                    holder.time.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                    holder.title.setTextColor(context.getResources().getColor(R.color.dark_brown));
+                    holder.time.setTextColor(context.getResources().getColor(R.color.text_dark));
                     holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.light_brown));
                     if (action == MotionEvent.ACTION_UP) {
                         int sessionId = holder.sessionId;

@@ -17,8 +17,13 @@ public class Session {
     List<Speaker> speakerList;
 
     // Empty constructor.
-    public Session() {
+    public Session() {}
 
+    // Constructor with only start, end date and special
+    public Session(int special, int startDate, int endDate) {
+        this.special = special;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     // Full constructor, without speaker list.
