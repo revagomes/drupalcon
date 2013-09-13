@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <string name="app_name">DrupalCon Prague</string>
+    <string name="favorite">Favorite</string>
+
+    <!-- Header -->
+    <string name="header_go_to_favorites">Go to favorites</string>
+    <string name="header_logo">DrupalCon Prague</string>
+    <string name="header_refresh">Update program</string>
+
+    <!-- Menu -->
+    <string name="menu_program">Program</string>
+    <string name="menu_speakers">Speakers</string>
+    <string name="menu_location">Location</string>
+    <string name="menu_info">Information</string>
+    <string name="menu_favorites">Your program</string>
+
+    <!-- Days - we should make this configurable by using arrays -->
+    <string name="day_1_integer">14</string>
+    <string name="day_2_integer">15</string>
+    <string name="day_1">Dag 1</string>
+    <string name="day_2">Dag 2</string>
+    <string name="day_1_text">SEPTEMBER 14th 2013</string>
+    <string name="day_2_text">SEPTEMBER 15th 2013</string>
+
+    <!-- Program -->
+    <string name="no_sessions">No sessions found, click here to download.\n\nYou can always update the program by clicking on the icon in the left upper corner when you are on the session list.</string>
+    <string name="updating">Program</string>
+    <string name="updating_message">Downloading the program with sessions and speakers, one moment please.</string>
+    <string name="update_offline">You are not connected to the internet.</string>
+    <string name="updating_done">The program has been updated</string>
+    <string name="service_offline">The program service is not available, please try again later</string>
+    <string name="parsing_failed">Something went wrong saving the program, please try again later</string>
+    <string name="favorite_add">Add to your program</string>
+    <string name="favorite_remove">Remove from your program</string>
+
+    <!-- Speakers -->
+    <string name="speaker_avatar">Avatar</string>
+
+    <!-- Location -->
+    <string name="location_map_link">Interactive map</string>
+    <string name="location_info">Prague Congress Centre\n5. května 1640/65\n140 00 Prague 4-Nusle\nCzech Republic\n+420 261 171 111</string>
+    <string name="location_geo_lat">50.062152</string>
+    <string name="location_geo_long">14.428607</string>
+
+    <!-- Information -->
+    <string name="information_text"><![CDATA[Open source mobile application for DrupalCon, first used for DrupalCon Prague 2013.<br /><br /><b>Proudly built by</b><br /><a href="https://twitter.com/TimLeytens">@TimLeytens</a><br /><a href="https://twitter.com/swentel">@swentel</a><br /><a href="https://twitter.com/leenvs">@LeenVS</a><br /><br /><b>Source code</b><br />iOS: <a href="http://github.com/TimLeytens/drupalcon">GitHub</a><br />Android: <a href="https://github.com/swentel/drupalcon">GitHub</a>]]></string>
+
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:weightSum="1.0"
+        android:background="@drawable/tabbar_background"
+        android:layout_height="@dimen/menu_height">
+
+    <ImageView
+            android:id="@+id/menu_program"
+            android:contentDescription="@string/menu_program"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/menu_height"
+            android:src="@drawable/menu_program"
+            android:scaleType="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+    <ImageView
+            android:id="@+id/menu_speakers"
+            android:contentDescription="@string/menu_speakers"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/menu_height"
+            android:src="@drawable/menu_speakers"
+            android:scaleType="center"/>
+
+    <ImageView
+            android:id="@+id/menu_location"
+            android:contentDescription="@string/menu_location"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/menu_height"
+            android:src="@drawable/menu_location"
+            android:scaleType="center" />
+
+    <ImageView
+            android:id="@+id/menu_information"
+            android:contentDescription="@string/menu_info"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/menu_height"
+            android:src="@drawable/menu_info"
+            android:scaleType="center" />
+
+</LinearLayout>

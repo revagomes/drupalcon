@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="global_background">#dccbb3</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#f0f0f1</color>
+    <color name="dark_brown">#5c463a</color>
+    <color name="light_brown">#f1e9de</color>
+    <color name="text_dark">#5c463a</color>
+    <color name="dark_grey">#959595</color>
+    <color name="separator">#dcdcdc</color>
+    <color name="session">#5c463a</color>
+    <color name="session_hover">#5c463a</color>
+    <color name="speakers">#00878a</color>
+    <color name="speakers_hover">#016f71</color>
+    <color name="location">#c27757</color>
+    <color name="info">#ffc600</color>
+    <color name="press_menu">#c27757</color>
+</resources>

@@ -1,0 +1,79 @@
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/global_background"
+        tools:context=".Location"
+        android:orientation="vertical">
+
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/menu_height"
+            android:background="@drawable/tile"
+            android:id="@+id/scrollview">
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <include layout="@layout/header" />
+
+            <include layout="@layout/separator" />
+
+            <TextView
+                    android:id="@+id/location_info"
+                    android:textColor="@color/text_dark"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/global_text_size"
+                    android:text="@string/location_info"
+                    android:paddingLeft="@dimen/global_left_padding"
+                    android:paddingTop="@dimen/global_top_padding"
+                    android:paddingBottom="@dimen/global_top_padding"
+                    android:paddingRight="@dimen/global_right_padding">
+            </TextView>
+
+            <TextView
+                    android:id="@+id/location_map_link"
+                    android:textColor="@color/location"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/global_text_size"
+                    android:text="@string/location_map_link"
+                    android:paddingLeft="@dimen/global_left_padding"
+                    android:paddingBottom="@dimen/global_small_padding"
+                    android:paddingRight="@dimen/global_right_padding"
+                    android:layout_marginBottom="@dimen/global_small_padding"
+                    android:layout_marginLeft="@dimen/global_left_padding"
+                    android:layout_marginRight="@dimen/global_right_padding"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/global_small_padding">
+            </TextView>
+
+            <ImageView
+                    android:paddingLeft="@dimen/global_left_padding"
+                    android:paddingRight="@dimen/global_right_padding"
+                    android:src="@drawable/inline_map"
+                    android:id="@+id/location_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/location_info"
+                    android:scaleType="fitStart"
+                    android:adjustViewBounds="true"
+                    android:paddingBottom="@dimen/location_padding_bottom">
+            </ImageView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/menu"
+             android:layout_width="fill_parent"
+             android:layout_height="@dimen/menu_height"
+             android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

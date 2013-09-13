@@ -10,7 +10,7 @@ Features
 2. Speakers
 3. Location
 4. Information
-5. Favorites
+5. Favorites / Your program
 
 JSON format
 -----------
