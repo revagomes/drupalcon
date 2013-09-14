@@ -10,8 +10,7 @@ Features
 2. Speakers
 3. Location
 4. Information
-5. Favorites / Your program
-   Note: does not sync with your account.
+5. Favorites / Your program - note: does not sync with your account.
 
 JSON format
 -----------
