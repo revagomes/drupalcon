@@ -30,6 +30,7 @@
     <dimen name="session_divider_height">5dp</dimen>
     <dimen name="no_sessions_padding_top">10dp</dimen>
     <dimen name="favorites_star_session">30dp</dimen>
+    <dimen name="track_left_margin">45dp</dimen>
 
     <!-- location.xml -->
     <dimen name="location_padding_bottom">10dp</dimen>

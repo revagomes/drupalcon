@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -91,7 +91,9 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
         public TextView title;
         public TextView speaker;
         public TextView time;
-        public ImageButton favorite;
+        public TextView track;
+        public ImageView track_icon;
+        public ImageView level;
         public LinearLayout session_item;
     }
 
@@ -108,13 +110,14 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     convertView = mInflater.inflate(R.layout.session_normal_item, null);
                     holder.title = (TextView) convertView.findViewById(R.id.session_title);
                     holder.speaker = (TextView) convertView.findViewById(R.id.session_speakers);
-                    holder.time = (TextView) convertView.findViewById(R.id.session_time_room);
-                    holder.favorite = (ImageButton) convertView.findViewById(R.id.session_favorite);
+                    holder.track = (TextView) convertView.findViewById(R.id.session_track);
+                    holder.track_icon = (ImageView) convertView.findViewById(R.id.session_track_icon);
+                    holder.level = (ImageView) convertView.findViewById(R.id.session_level);
                     holder.session_item = (LinearLayout) convertView.findViewById(R.id.session_item);
                     break;
                 case SLOTTIME:
                     convertView = mInflater.inflate(R.layout.session_slot_item, null);
-                    holder.time = (TextView) convertView.findViewById(R.id.session_time);
+                    holder.time = (TextView) convertView.findViewById(R.id.session_title_time);
                     break;
                 case SPECIAL:
                     convertView = mInflater.inflate(R.layout.session_special_item, null);
@@ -133,12 +136,15 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
             // Id.
             holder.sessionId = session.getId();
 
+            // Every item has a title.
+            holder.title.setText(session.getTitle());
+            holder.title.setTypeface(fontFace);
+
+            // We switch on normal and special. Slot time
+            // does not need extra handling.
             switch (type) {
 
                 case NORMAL:
-                    // Title.
-                    holder.title.setText(session.getTitle());
-                    holder.title.setTypeface(fontFace);
 
                     // Normal sessions also get speakers, hour and favorite button.
                     String speakers = "";
@@ -153,47 +159,20 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     holder.speaker.setText(speakers);
                     holder.speaker.setTypeface(fontFace);
 
-                    // Session time and room.
-                    from = session.getStartDate();
-                    to = session.getEndDate();
-                    sdf = new SimpleDateFormat("kk:mm");
-                    startHour = new Date((long)from * 1000);
-                    endHour = new Date((long)to * 1000);
-                    room = "";
-                    if (session.getRoom().length() > 0) {
-                        room += " | " + session.getRoom();
-                    }
-                    holder.time.setText(sdf.format(startHour) + " - " + sdf.format(endHour) + room);
-                    holder.time.setTypeface(fontFace);
+                    // Track.
+                    holder.track.setText(session.getTrack());
+                    holder.track.setTypeface(fontFace);
+                    holder.track_icon.setImageResource(R.drawable.business);
 
-                    // Favorite image.
-                    if (session.getFavorite() == 0) {
-                        holder.favorite.setImageResource(R.drawable.non_favorited_session);
-                    }
-                    else {
-                        holder.favorite.setImageResource(R.drawable.favorited_session);
-                    }
+                    // Level icon.
+                    int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
+                    holder.level.setImageResource(LevelIconId);
 
                     // Set touch listener.
                     convertView.setOnTouchListener(sessionTouch);
                     break;
 
                 case SPECIAL:
-                    // Special (e.g. lunch) has title and start time.
-                    holder.title.setText(session.getTitle());
-                    holder.title.setTypeface(fontFace);
-
-                    from = session.getStartDate();
-                    to = session.getEndDate();
-                    sdf = new SimpleDateFormat("kk:mm");
-                    startHour = new Date((long)from * 1000);
-                    endHour = new Date((long)to * 1000);
-                    holder.time.setText(sdf.format(startHour) + " - " + sdf.format(endHour));
-                    holder.time.setTypeface(fontFace);
-                    break;
-
-                case SLOTTIME:
-                    // Slot time only shows time.
                     from = session.getStartDate();
                     to = session.getEndDate();
                     sdf = new SimpleDateFormat("kk:mm");
@@ -220,14 +199,14 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 case MotionEvent.ACTION_DOWN:
                     holder.title.setTextColor(context.getResources().getColor(R.color.white));
                     holder.speaker.setTextColor(context.getResources().getColor(R.color.white));
-                    holder.time.setTextColor(context.getResources().getColor(R.color.white));
+                    holder.track.setTextColor(context.getResources().getColor(R.color.white));
                     holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.press_row));
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     holder.title.setTextColor(context.getResources().getColor(R.color.dark_brown));
                     holder.speaker.setTextColor(context.getResources().getColor(R.color.text_dark));
-                    holder.time.setTextColor(context.getResources().getColor(R.color.text_dark));
+                    holder.track.setTextColor(context.getResources().getColor(R.color.text_dark));
                     holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.light_brown));
                     if (action == MotionEvent.ACTION_UP) {
                         int sessionId = holder.sessionId;

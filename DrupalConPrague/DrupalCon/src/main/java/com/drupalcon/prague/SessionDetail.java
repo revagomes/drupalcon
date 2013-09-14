@@ -50,6 +50,11 @@ public class SessionDetail extends BaseActivity {
         }
         stime.setText(Date + " | " + sdf.format(startHour) + " - " + sdf.format(endHour));
 
+        // Session level icon.
+        ImageView sl = (ImageView) findViewById(R.id.session_level);
+        int LevelIconId = this.getResources().getIdentifier("level_" + session.getLevel(),"drawable", this.getPackageName());
+        sl.setImageResource(LevelIconId);
+
         // Room.
         TextView sr = (TextView) findViewById(R.id.session_room);
         if (session.getRoom().length() > 0) {
@@ -58,6 +63,12 @@ public class SessionDetail extends BaseActivity {
         else {
             sr.setVisibility(TextView.GONE);
         }
+
+        // Track.
+        TextView str = (TextView) findViewById(R.id.session_track);
+        str.setText(session.getTrack());
+        ImageView stri = (ImageView) findViewById(R.id.session_track_icon);
+        stri.setImageResource(R.drawable.business);
 
         // Description.
         TextView sd = (TextView) findViewById(R.id.session_description);

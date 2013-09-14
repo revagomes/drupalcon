@@ -50,8 +50,7 @@
                     android:layout_marginBottom="@dimen/global_small_padding"
                     android:layout_marginLeft="@dimen/global_left_padding"
                     android:layout_marginRight="@dimen/global_right_padding"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="@dimen/global_small_padding">
+                    android:gravity="center_horizontal">
             </TextView>
 
             <ImageView

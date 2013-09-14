@@ -13,21 +13,15 @@ public class Session {
     int level = 0;
     int day = 0;
     int favorite = 0;
+    String track = "";
     String room = "";
     List<Speaker> speakerList;
 
     // Empty constructor.
     public Session() {}
 
-    // Constructor with only start, end date and special
-    public Session(int special, int startDate, int endDate) {
-        this.special = special;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
     // Full constructor, without speaker list.
-    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, int favorite) {
+    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, String track, int favorite) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,10 +32,11 @@ public class Session {
         this.day = day;
         this.favorite = favorite;
         this.room = room;
+        this.track = track;
     }
 
     // Full constructor, including speaker list.
-    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, int favorite, List<Speaker> speakerList) {
+    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, String track, int favorite, List<Speaker> speakerList) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -51,6 +46,7 @@ public class Session {
         this.level = level;
         this.day = day;
         this.room = room;
+        this.track = track;
         this.favorite = favorite;
         this.speakerList = speakerList;
     }
@@ -133,6 +129,14 @@ public class Session {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public String getTrack() {
+        return this.track;
+    }
+
+    public void setTrack(String track) {
+        this.track = track;
     }
 
     public List<Speaker> getSpeakers() {

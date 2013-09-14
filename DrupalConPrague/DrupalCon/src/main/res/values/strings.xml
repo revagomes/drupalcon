@@ -35,6 +35,8 @@
     <string name="parsing_failed">Something went wrong saving the program, please try again later</string>
     <string name="favorite_add">Add to your program</string>
     <string name="favorite_remove">Remove from your program</string>
+    <string name="session_level">Experience level</string>
+    <string name="session_room">Room:</string>
 
     <!-- Speakers -->
     <string name="speaker_avatar">Avatar</string>

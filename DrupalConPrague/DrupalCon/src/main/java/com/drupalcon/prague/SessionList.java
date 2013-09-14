@@ -220,6 +220,16 @@ public class SessionList extends BaseActivity {
                                 session.setRoom(jsonSession.getString("room"));
                             }
 
+                            // Track.
+                            if (!jsonSession.isNull("track")) {
+                                // We only have 1 track for DrupalCon events, but
+                                // our service currently still stores it in an array.
+                                JSONArray tracks = jsonSession.getJSONArray("track");
+                                for (int j = 0; j < tracks.length(); j++) {
+                                    session.setTrack(tracks.getString(0));
+                                }
+                            }
+
                             // Save session
                             handler.insertSession(session);
 
