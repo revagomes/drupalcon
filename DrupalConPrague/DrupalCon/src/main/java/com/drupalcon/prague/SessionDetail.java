@@ -67,6 +67,7 @@ public class SessionDetail extends BaseActivity {
         // Track.
         TextView str = (TextView) findViewById(R.id.session_track);
         str.setText(session.getTrack());
+        // @todo when the service has been updated.
         ImageView stri = (ImageView) findViewById(R.id.session_track_icon);
         stri.setImageResource(R.drawable.business);
 

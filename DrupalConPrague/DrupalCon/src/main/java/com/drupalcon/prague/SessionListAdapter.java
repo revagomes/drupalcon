@@ -162,6 +162,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     // Track.
                     holder.track.setText(session.getTrack());
                     holder.track.setTypeface(fontFace);
+                    // @todo when the service has been updated.
                     holder.track_icon.setImageResource(R.drawable.business);
 
                     // Level icon.

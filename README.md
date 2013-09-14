@@ -6,7 +6,7 @@ Android application for information about a DrupalCon, initially built for Drupa
 Features
 --------
 
-1. Program
+1. Schedule
 2. Speakers
 3. Location
 4. Information
