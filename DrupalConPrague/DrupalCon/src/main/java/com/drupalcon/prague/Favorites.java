@@ -1,8 +1,7 @@
 package com.drupalcon.prague;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.List;
 
@@ -22,24 +21,13 @@ public class Favorites extends BaseActivity {
         sessions = db.getFavorites();
 
         SessionListSmallAdapter adapter = new SessionListSmallAdapter(this, sessions);
-
-        int dp = (int) getResources().getDimension(R.dimen.global_padding);
-        int dp_small = (int) getResources().getDimension(R.dimen.global_small_padding);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(dp, dp, dp, dp_small);
-
-        LinearLayout favorites_list = (LinearLayout) findViewById(R.id.favorites_list);
-
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View item = adapter.getView(i, null, null);
-            item.setLayoutParams(layoutParams);
-            favorites_list.addView(item);
-        }
+        ListView favorites_list = (ListView) findViewById(R.id.favorites_list);
+        favorites_list.setAdapter(adapter);
 
         // Set header title.
         setTextViewString(R.id.header_title, R.string.menu_favorites);
 
         // Set fonts and colors.
         setFontToFuturaMedium(R.id.header_title);
-    }}
+    }
+}
