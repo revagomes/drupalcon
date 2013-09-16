@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -25,7 +26,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
 import java.util.List;
 
 public class SessionList extends BaseActivity {
@@ -40,11 +40,10 @@ public class SessionList extends BaseActivity {
     public int numberOfSessions = 0;
 
     // Other variables.
-    public int day_integer;
+    public int get_day;
     ProgressDialog dialog;
     public static int siteStatus = 200;
     public List<Session> sessions;
-    public DateFormat sdf;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,24 +77,42 @@ public class SessionList extends BaseActivity {
             noSessions.setVisibility(TextView.GONE);
 
             // Get day and text of the day.
-            Time today = new Time(Time.getCurrentTimezone());
-            today.setToNow();
-            int day = today.monthDay;
-            day_integer = checkDay(day, true, this);
-            String day_text = getDateFromTimestamp(day_integer, true, this);
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                get_day = extras.getInt("get_day");
+            }
+            else {
+                Time today = new Time(Time.getCurrentTimezone());
+                today.setToNow();
+                int day = today.monthDay;
+                get_day = getDay(day, true, this);
+            }
+
+            String day_text = getDateFromTimestamp(get_day, true, this);
             TextView day_text_view = (TextView) findViewById(R.id.day_text);
             day_text_view.setText(day_text);
             setFontToFuturaMedium(R.id.day_text);
 
             // List sessions.
             ListView session_list = (ListView) findViewById(R.id.session_list);
-            sessions = db.getSessions(day_integer);
+            sessions = db.getSessions(get_day);
             SessionListAdapter adapter = new SessionListAdapter(this, sessions);
             session_list.setAdapter(adapter);
 
             // Set listeners on day bars and arrows and/or remove accordingly.
-            next_day_arrow.setOnClickListener(showNext);
-            previous_day_arrow.setOnClickListener(showPrevious);
+            if (hasPreviousDay()) {
+                previous_day_arrow.setOnClickListener(showPrevious);
+            }
+            else {
+                previous_day_arrow.setVisibility(ImageButton.GONE);
+            }
+
+            if (hasNextDay()) {
+                next_day_arrow.setOnClickListener(showNext);
+            }
+            else {
+                next_day_arrow.setVisibility(ImageButton.GONE);
+            }
         }
         else {
             // Set listener on text view button to refresh the program.
@@ -115,8 +132,9 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showNext = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            //int nextDay = day_integer + 1;
+            int nextDay = get_day + 1;
             Intent sessionList = new Intent(getBaseContext(), SessionList.class);
+            sessionList.putExtra("get_day", nextDay);
             startActivity(sessionList);
 
         }
@@ -128,8 +146,9 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showPrevious = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            //int previousDay = day_integer - 1;
+            int previousDay = get_day - 1;
             Intent sessionList = new Intent(getBaseContext(), SessionList.class);
+            sessionList.putExtra("get_day", previousDay);
             startActivity(sessionList);
         }
     };

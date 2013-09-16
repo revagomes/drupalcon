@@ -16,6 +16,9 @@ public class BaseActivity extends Activity {
 
     public boolean clickRefreshButton = false;
     public boolean showFavoritesButton = true;
+    public static int index = -1;
+    public static int[] date_int_resources;
+    public static int dates_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,15 +137,14 @@ public class BaseActivity extends Activity {
     }
 
     /**
-     * Returns the text string for a date based on a day.
+     * Returns the day integer.
      */
-    public static int checkDay(int day, boolean returnFirstIfNotFound, Context context) {
-
+    public static int getDay(int day, boolean returnFirstIfNotFound, Context context) {
         int day_integer = 0;
-        int index = -1;
-        int[] date_int_resources = context.getResources().getIntArray(R.array.dates_int);
+        date_int_resources = context.getResources().getIntArray(R.array.dates_int);
+        dates_count = date_int_resources.length - 1;
 
-        for (int i = 0; i < date_int_resources.length; i++) {
+        for (int i = 0; i < dates_count; i++) {
             if (date_int_resources[i] == day) {
                 index = i;
             }
@@ -159,13 +161,35 @@ public class BaseActivity extends Activity {
     }
 
     /**
+     * Checks whether we have a previous day.
+     */
+    public static boolean hasPreviousDay() {
+        if (index > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks whether we have a next day.
+     */
+    public static boolean hasNextDay() {
+        if (index >= 0 && index != dates_count) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the text string for a date based on a day.
      */
     public static String getDateFromTimestamp(int day, boolean returnFirstIfNotFound, Context context) {
 
         String date_text = "";
-        int index = -1;
-        int[] date_int_resources = context.getResources().getIntArray(R.array.dates_int);
+        index = -1;
+        date_int_resources = context.getResources().getIntArray(R.array.dates_int);
         String[] date_string_resources = context.getResources().getStringArray(R.array.dates_full);
 
         for (int i = 0; i < date_int_resources.length; i++) {
