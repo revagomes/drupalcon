@@ -40,7 +40,7 @@ public class SessionList extends BaseActivity {
     public int numberOfSessions = 0;
 
     // Other variables.
-    public int get_day;
+    public int get_day = 0;
     ProgressDialog dialog;
     public static int siteStatus = 200;
     public List<Session> sessions;
@@ -77,18 +77,25 @@ public class SessionList extends BaseActivity {
             noSessions.setVisibility(TextView.GONE);
 
             // Get day and text of the day.
+            get_day = 0;
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                get_day = extras.getInt("get_day");
+                get_day = extras.getInt("get_day", 0);
             }
-            else {
+
+            Log.d("GETTING DAY", "" + get_day);
+
+            if (get_day == 0) {
+                Log.d("GETTING DAY OK", "" + get_day);
                 Time today = new Time(Time.getCurrentTimezone());
                 today.setToNow();
                 int day = today.monthDay;
-                get_day = getDay(day, true, this);
+                Log.d("GETTING DAY ", "day: " + day);
+                get_day = getDay(day, true, SessionList.this);
+                Log.d("GETTING DAY ", "get day: " + get_day);
             }
 
-            String day_text = getDateFromTimestamp(get_day, true, this);
+            String day_text = getDateFromInteger(get_day, true, this);
             TextView day_text_view = (TextView) findViewById(R.id.day_text);
             day_text_view.setText(day_text);
             setFontToFuturaMedium(R.id.day_text);
@@ -243,6 +250,14 @@ public class SessionList extends BaseActivity {
                                 for (int j = 0; j < tracks.length(); j++) {
                                     session.setTrack(tracks.getString(0));
                                 }
+                            }
+
+                            // @todo fixme when service has more data.
+                            if (i == 3) {
+                                session.setTrack("coding");
+                            }
+                            else if (i == 4) {
+                                session.setTrack("sitebuilding");
                             }
 
                             // Save session

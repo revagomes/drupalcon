@@ -41,7 +41,7 @@ public class SessionDetail extends BaseActivity {
         Date startHour = new Date((long)from * 1000);
         Date endHour = new Date((long)to * 1000);
         TextView stime = (TextView) findViewById(R.id.session_time);
-        String Date = getDateFromTimestamp(session.getDay(), false, this);
+        String Date = getDateFromInteger(session.getDay(), false, this);
         stime.setText(Date + " | " + sdf.format(startHour) + " - " + sdf.format(endHour));
 
         // Session level icon.
@@ -73,8 +73,8 @@ public class SessionDetail extends BaseActivity {
         ImageView stri = (ImageView) findViewById(R.id.session_track_icon);
         if (session.getTrack().length() > 0) {
             str.setText(session.getTrack());
-            // @todo when the service has been updated.
-            stri.setImageResource(R.drawable.business);
+            int trackIcon = this.getResources().getIdentifier(session.getTrack(),"drawable", this.getPackageName());
+            stri.setImageResource(trackIcon);
         }
         else {
             str.setVisibility(TextView.GONE);

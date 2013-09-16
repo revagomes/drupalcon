@@ -173,8 +173,8 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     if (session.getTrack().length() > 0) {
                         holder.track.setText(session.getTrack());
                         holder.track.setTypeface(fontFace);
-                        // @todo when the service has been updated.
-                        holder.track_icon.setImageResource(R.drawable.business);
+                        int trackIcon = context.getResources().getIdentifier(session.getTrack(),"drawable", context.getPackageName());
+                        holder.track_icon.setImageResource(trackIcon);
                     }
                     else {
                         holder.track.setVisibility(TextView.GONE);

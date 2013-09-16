@@ -16,7 +16,7 @@ public class BaseActivity extends Activity {
 
     public boolean clickRefreshButton = false;
     public boolean showFavoritesButton = true;
-    public static int index = -1;
+    public static int index;
     public static int[] date_int_resources;
     public static int dates_count;
 
@@ -140,6 +140,7 @@ public class BaseActivity extends Activity {
      * Returns the day integer.
      */
     public static int getDay(int day, boolean returnFirstIfNotFound, Context context) {
+        index = -1;
         int day_integer = 0;
         date_int_resources = context.getResources().getIntArray(R.array.dates_int);
         dates_count = date_int_resources.length - 1;
@@ -185,7 +186,7 @@ public class BaseActivity extends Activity {
     /**
      * Returns the text string for a date based on a day.
      */
-    public static String getDateFromTimestamp(int day, boolean returnFirstIfNotFound, Context context) {
+    public static String getDateFromInteger(int day, boolean returnFirstIfNotFound, Context context) {
 
         String date_text = "";
         index = -1;

@@ -17,4 +17,14 @@
         <item>27</item>
     </integer-array>
 
+    <string-array name="tracks_full">
+        <item>Site Building</item>
+        <item>Coding + Development</item>
+    </string-array>
+
+    <string-array name="tracks_image">
+        <item>sitebuilding</item>
+        <item>coding</item>
+    </string-array>
+
 </resources>
