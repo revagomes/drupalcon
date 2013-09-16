@@ -40,6 +40,7 @@ public class SessionList extends BaseActivity {
     public int numberOfSessions = 0;
 
     // Other variables.
+    public int day_integer;
     ProgressDialog dialog;
     public static int siteStatus = 200;
     public List<Session> sessions;
@@ -65,8 +66,8 @@ public class SessionList extends BaseActivity {
         refresh.setOnClickListener(refreshProgram);
 
         // Arrow buttons.
-        ImageButton day_previous_arrow = (ImageButton) findViewById(R.id.day_previous_arrow);
-        ImageButton day_next_arrow = (ImageButton) findViewById(R.id.day_next_arrow);
+        ImageButton next_day_arrow = (ImageButton) findViewById(R.id.next_day_arrow);
+        ImageButton previous_day_arrow = (ImageButton) findViewById(R.id.previous_day_arrow);
 
         // Check number of sessions. In case there are none, hide the flipper.
         DatabaseHandler db = new DatabaseHandler(this);
@@ -80,7 +81,7 @@ public class SessionList extends BaseActivity {
             Time today = new Time(Time.getCurrentTimezone());
             today.setToNow();
             int day = today.monthDay;
-            int day_integer = checkDay(day, true, this);
+            day_integer = checkDay(day, true, this);
             String day_text = getDateFromTimestamp(day_integer, true, this);
             TextView day_text_view = (TextView) findViewById(R.id.day_text);
             day_text_view.setText(day_text);
@@ -92,15 +93,9 @@ public class SessionList extends BaseActivity {
             SessionListAdapter adapter = new SessionListAdapter(this, sessions);
             session_list.setAdapter(adapter);
 
-            // Set listeners on day bars and arrows.
-            /*RelativeLayout day1_bar = (RelativeLayout) findViewById(R.id.day_1_bar);
-            ImageButton day1_arrow = (ImageButton) findViewById(R.id.day_1_arrow);
-            day1_bar.setOnClickListener(showNext);
-            day1_arrow.setOnClickListener(showNext);
-            RelativeLayout day2_bar = (RelativeLayout) findViewById(R.id.day_2_bar);
-            ImageButton day2_arrow = (ImageButton) findViewById(R.id.day_2_arrow);
-            day2_bar.setOnClickListener(showPrevious);
-            day2_arrow.setOnClickListener(showPrevious);*/
+            // Set listeners on day bars and arrows and/or remove accordingly.
+            next_day_arrow.setOnClickListener(showNext);
+            previous_day_arrow.setOnClickListener(showPrevious);
         }
         else {
             // Set listener on text view button to refresh the program.
@@ -109,8 +104,8 @@ public class SessionList extends BaseActivity {
             ListView session_list = (ListView) findViewById(R.id.session_list);
             session_list.setEmptyView(findViewById(R.id.no_sessions));
             // Hide arrows.
-            day_previous_arrow.setVisibility(ImageButton.GONE);
-            day_next_arrow.setVisibility(ImageButton.GONE);
+            next_day_arrow.setVisibility(ImageButton.GONE);
+            previous_day_arrow.setVisibility(ImageButton.GONE);
         }
     }
 
@@ -120,7 +115,10 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showNext = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            //switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, false));
+            //int nextDay = day_integer + 1;
+            Intent sessionList = new Intent(getBaseContext(), SessionList.class);
+            startActivity(sessionList);
+
         }
     };
 
@@ -130,7 +128,9 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showPrevious = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            //switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, true));
+            //int previousDay = day_integer - 1;
+            Intent sessionList = new Intent(getBaseContext(), SessionList.class);
+            startActivity(sessionList);
         }
     };
 
