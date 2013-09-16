@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -57,7 +56,6 @@ public class SessionList extends BaseActivity {
 
         // Set fonts and colors.
         setFontToFuturaMedium(R.id.header_title);
-        setFontToFuturaMedium(R.id.day_text);
 
         // Get flipper, refresh and no events.
         ImageButton refresh = (ImageButton) findViewById(R.id.refresh);
@@ -78,14 +76,17 @@ public class SessionList extends BaseActivity {
             // Hide empty no sessions message.
             noSessions.setVisibility(TextView.GONE);
 
-            Log.d("SPEAKERS FOR", "Initializing ....");
-
+            // Get day and text of the day.
             Time today = new Time(Time.getCurrentTimezone());
             today.setToNow();
             int day = today.monthDay;
+            int day_integer = checkDay(day, true, this);
+            String day_text = getDateFromTimestamp(day_integer, true, this);
+            TextView day_text_view = (TextView) findViewById(R.id.day_text);
+            day_text_view.setText(day_text);
+            setFontToFuturaMedium(R.id.day_text);
 
-            int day_integer = 23;
-
+            // List sessions.
             ListView session_list = (ListView) findViewById(R.id.session_list);
             sessions = db.getSessions(day_integer);
             SessionListAdapter adapter = new SessionListAdapter(this, sessions);

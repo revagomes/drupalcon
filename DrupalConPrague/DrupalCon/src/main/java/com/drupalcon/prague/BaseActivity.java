@@ -1,6 +1,7 @@
 package com.drupalcon.prague;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -132,4 +133,54 @@ public class BaseActivity extends Activity {
         tv.setTypeface(tf);
     }
 
+    /**
+     * Returns the text string for a date based on a day.
+     */
+    public static int checkDay(int day, boolean returnFirstIfNotFound, Context context) {
+
+        int day_integer = 0;
+        int index = -1;
+        int[] date_int_resources = context.getResources().getIntArray(R.array.dates_int);
+
+        for (int i = 0; i < date_int_resources.length; i++) {
+            if (date_int_resources[i] == day) {
+                index = i;
+            }
+        }
+
+        if (index != -1) {
+            day_integer = day;
+        }
+        else if (returnFirstIfNotFound) {
+            day_integer = date_int_resources[0];
+        }
+
+        return day_integer;
+    }
+
+    /**
+     * Returns the text string for a date based on a day.
+     */
+    public static String getDateFromTimestamp(int day, boolean returnFirstIfNotFound, Context context) {
+
+        String date_text = "";
+        int index = -1;
+        int[] date_int_resources = context.getResources().getIntArray(R.array.dates_int);
+        String[] date_string_resources = context.getResources().getStringArray(R.array.dates_full);
+
+        for (int i = 0; i < date_int_resources.length; i++) {
+            if (date_int_resources[i] == day) {
+                index = i;
+            }
+        }
+
+        if (index != -1) {
+            date_text = date_string_resources[index];
+        }
+        else if (returnFirstIfNotFound) {
+            date_text = date_string_resources[0];
+        }
+
+        return date_text;
+    }
 }

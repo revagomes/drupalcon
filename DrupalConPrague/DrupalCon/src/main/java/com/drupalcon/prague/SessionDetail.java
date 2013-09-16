@@ -41,13 +41,7 @@ public class SessionDetail extends BaseActivity {
         Date startHour = new Date((long)from * 1000);
         Date endHour = new Date((long)to * 1000);
         TextView stime = (TextView) findViewById(R.id.session_time);
-        String Date = "";
-        if (session.getDay() == 14) {
-            Date = "September 14th";
-        }
-        else {
-            Date = "September 15th";
-        }
+        String Date = getDateFromTimestamp(session.getDay(), false, this);
         stime.setText(Date + " | " + sdf.format(startHour) + " - " + sdf.format(endHour));
 
         // Session level icon.
