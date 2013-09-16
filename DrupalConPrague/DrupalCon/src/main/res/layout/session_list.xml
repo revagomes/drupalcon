@@ -18,42 +18,45 @@
 
             <include layout="@layout/separator" />
 
-            <ViewFlipper
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dayFlipper">
-
                 <LinearLayout
                         android:orientation="vertical"
-                        android:id="@+id/day_flip_1"
                         android:layout_marginBottom="@dimen/list_margin_bottom"
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent">
 
                     <RelativeLayout
-                            android:id="@+id/day_1_bar"
+                            android:id="@+id/day_bar"
                             android:layout_width="fill_parent"
                             android:layout_marginTop="@dimen/global_small_padding"
                             android:layout_marginBottom="@dimen/global_small_padding"
                             android:layout_height="@dimen/day_height">
 
+                        <ImageButton
+                                android:id="@+id/day_previous_arrow"
+                                android:background="@null"
+                                android:src="@drawable/arrow_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/day_previous"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/global_right_padding"/>
+
                         <TextView
                                 android:textColor="@color/text_dark"
-                                android:id="@+id/day_1_text"
-                                android:text="@string/day_1_text"
+                                android:id="@+id/day_text"
                                 android:textSize="@dimen/day_text_size"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"/>
 
                         <ImageButton
-                                android:id="@+id/day_1_arrow"
+                                android:id="@+id/day_next_arrow"
                                 android:background="@null"
                                 android:src="@drawable/arrow_right"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:contentDescription="@string/day_1"
+                                android:contentDescription="@string/day_next"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="@dimen/global_right_padding"/>
@@ -61,7 +64,7 @@
                     </RelativeLayout>
 
                     <ListView
-                            android:id="@+id/session_list_day_1"
+                            android:id="@+id/session_list"
                             android:paddingLeft="@dimen/global_left_padding"
                             android:paddingRight="@dimen/global_right_padding"
                             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -72,62 +75,6 @@
                             android:layout_height="fill_parent" />
 
                 </LinearLayout>
-
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/day_flip_2"
-                        android:layout_marginBottom="@dimen/list_margin_bottom"
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:background="@color/grey"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                            android:id="@+id/day_2_bar"
-                            android:background="@color/grey"
-                            android:layout_width="fill_parent"
-                            android:layout_marginTop="@dimen/global_small_padding"
-                            android:layout_marginBottom="@dimen/global_small_padding"
-                            android:layout_height="@dimen/day_height">
-
-                        <ImageButton
-                                android:id="@+id/day_2_arrow"
-                                android:background="@null"
-                                android:src="@drawable/arrow_left"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:contentDescription="@string/day_2"
-                                android:layout_marginLeft="@dimen/global_left_padding" />
-
-                        <TextView
-                                android:textColor="@color/text_dark"
-                                android:id="@+id/day_2_text"
-                                android:text="@string/day_2_text"
-                                android:textSize="@dimen/day_text_size"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"/>
-
-                    </RelativeLayout>
-
-                    <include layout="@layout/separator" />
-
-                    <ListView
-                            android:id="@+id/session_list_day_2"
-                            android:paddingTop="@dimen/global_small_padding"
-                            android:paddingLeft="@dimen/global_left_padding"
-                            android:paddingRight="@dimen/global_right_padding"
-                            xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:dividerHeight="@dimen/divider_height"
-                            android:fadingEdge="none"
-                            android:divider="@color/grey"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" />
-
-                </LinearLayout>
-
-            </ViewFlipper>
 
             <TextView
                     android:textColor="@color/text_dark"

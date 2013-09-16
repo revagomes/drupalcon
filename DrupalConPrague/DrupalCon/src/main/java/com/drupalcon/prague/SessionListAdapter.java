@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -27,15 +28,11 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
     private LayoutInflater mInflater;
     private Typeface fontFace;
 
-    private int slotTime = 0;
-    private int sessionTime = 0;
-
     private int from;
     private int to;
     private Date startHour;
     private Date endHour;
     private DateFormat sdf;
-    private String room;
 
     private static final int NORMAL = 0;
     private static final int SPECIAL = 1;
@@ -95,6 +92,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
         public ImageView track_icon;
         public ImageView level;
         public LinearLayout session_item;
+        public RelativeLayout session_meta_info;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -114,6 +112,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     holder.track_icon = (ImageView) convertView.findViewById(R.id.session_track_icon);
                     holder.level = (ImageView) convertView.findViewById(R.id.session_level);
                     holder.session_item = (LinearLayout) convertView.findViewById(R.id.session_item);
+                    holder.session_meta_info = (RelativeLayout) convertView.findViewById(R.id.session_meta_info);
                     break;
                 case SLOTTIME:
                     convertView = mInflater.inflate(R.layout.session_slot_item, null);
@@ -150,24 +149,47 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     String speakers = "";
                     List<Speaker> speakerList = session.getSpeakers();
                     for (int i = 0; i < speakerList.size(); i++) {
-                        Speaker speaker = speakerList.get(i);
+                        Speaker speakerItem = speakerList.get(i);
                         if (i > 0) {
                             speakers += " - ";
                         }
-                        speakers += speaker.getFirstName() + " " + speaker.getLastName();
+                        if (speakerItem.getFirstName().length() > 0) {
+                            speakers += speakerItem.getFirstName() + ' ' + speakerItem.getLastName();
+                        }
+                        else {
+                            speakers += speakerItem.getUsername();
+                        }
                     }
-                    holder.speaker.setText(speakers);
-                    holder.speaker.setTypeface(fontFace);
+
+                    if (speakers.length() > 0) {
+                        holder.speaker.setText(speakers);
+                        holder.speaker.setTypeface(fontFace);
+                    }
+                    else {
+                        holder.speaker.setVisibility(TextView.GONE);
+                    }
 
                     // Track.
-                    holder.track.setText(session.getTrack());
-                    holder.track.setTypeface(fontFace);
-                    // @todo when the service has been updated.
-                    holder.track_icon.setImageResource(R.drawable.business);
+                    if (session.getTrack().length() > 0) {
+                        holder.track.setText(session.getTrack());
+                        holder.track.setTypeface(fontFace);
+                        // @todo when the service has been updated.
+                        holder.track_icon.setImageResource(R.drawable.business);
+                    }
+                    else {
+                        holder.track.setVisibility(TextView.GONE);
+                        holder.track_icon.setVisibility(ImageView.GONE);
+                    }
 
                     // Level icon.
-                    int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
-                    holder.level.setImageResource(LevelIconId);
+                    int level = session.getLevel();
+                    if (level > 0) {
+                        int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
+                        holder.level.setImageResource(LevelIconId);
+                    }
+                    else {
+                        holder.level.setVisibility(ImageView.GONE);
+                    }
 
                     // Set touch listener.
                     convertView.setOnTouchListener(sessionTouch);

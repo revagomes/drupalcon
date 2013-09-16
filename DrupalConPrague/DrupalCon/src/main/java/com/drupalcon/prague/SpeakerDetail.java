@@ -29,7 +29,12 @@ public class SpeakerDetail extends BaseActivity {
 
         // Speaker name.
         TextView st = (TextView) findViewById(R.id.speaker_name);
-        st.setText(speaker.getFirstName() + ' ' + speaker.getLastName());
+        if (speaker.getFirstName().length() > 0) {
+            st.setText(speaker.getFirstName() + ' ' + speaker.getLastName());
+        }
+        else {
+            st.setText(speaker.getUsername());
+        }
 
         // Sessions of this speaker.
         List<Session> sessions = db.getSpeakerSessions(speaker.getId());

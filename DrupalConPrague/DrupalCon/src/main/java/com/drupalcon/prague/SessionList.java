@@ -7,14 +7,14 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.List;
 
 public class SessionList extends BaseActivity {
@@ -43,7 +44,7 @@ public class SessionList extends BaseActivity {
     ProgressDialog dialog;
     public static int siteStatus = 200;
     public List<Session> sessions;
-    public ViewFlipper switcher;
+    public DateFormat sdf;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +57,18 @@ public class SessionList extends BaseActivity {
 
         // Set fonts and colors.
         setFontToFuturaMedium(R.id.header_title);
-        setFontToFuturaMedium(R.id.day_1_text);
-        setFontToFuturaMedium(R.id.day_2_text);
+        setFontToFuturaMedium(R.id.day_text);
 
         // Get flipper, refresh and no events.
         ImageButton refresh = (ImageButton) findViewById(R.id.refresh);
         TextView noSessions = (TextView) findViewById(R.id.no_sessions);
-        switcher = (ViewFlipper) findViewById(R.id.dayFlipper);
 
         // Always set refresh listener on the button.
         refresh.setOnClickListener(refreshProgram);
+
+        // Arrow buttons.
+        ImageButton day_previous_arrow = (ImageButton) findViewById(R.id.day_previous_arrow);
+        ImageButton day_next_arrow = (ImageButton) findViewById(R.id.day_next_arrow);
 
         // Check number of sessions. In case there are none, hide the flipper.
         DatabaseHandler db = new DatabaseHandler(this);
@@ -75,35 +78,38 @@ public class SessionList extends BaseActivity {
             // Hide empty no sessions message.
             noSessions.setVisibility(TextView.GONE);
 
-            // For instance, put this in array integer list. That will require us to create dynamic
-            // flippers, listeners on the fly, but that will be good in the end.
-            int day1_integer = Integer.parseInt(getString(R.string.day_1_integer));
-            int day2_integer = Integer.parseInt(getString(R.string.day_2_integer));
+            Log.d("SPEAKERS FOR", "Initializing ....");
 
-            ListView day1_list = (ListView) findViewById(R.id.session_list_day_1);
-            getSessionsPerDay(day1_list, db, day1_integer);
+            Time today = new Time(Time.getCurrentTimezone());
+            today.setToNow();
+            int day = today.monthDay;
 
-            ListView day2_list = (ListView) findViewById(R.id.session_list_day_2);
-            getSessionsPerDay(day2_list, db, day2_integer);
+            int day_integer = 23;
+
+            ListView session_list = (ListView) findViewById(R.id.session_list);
+            sessions = db.getSessions(day_integer);
+            SessionListAdapter adapter = new SessionListAdapter(this, sessions);
+            session_list.setAdapter(adapter);
 
             // Set listeners on day bars and arrows.
-            RelativeLayout day1_bar = (RelativeLayout) findViewById(R.id.day_1_bar);
+            /*RelativeLayout day1_bar = (RelativeLayout) findViewById(R.id.day_1_bar);
             ImageButton day1_arrow = (ImageButton) findViewById(R.id.day_1_arrow);
             day1_bar.setOnClickListener(showNext);
             day1_arrow.setOnClickListener(showNext);
             RelativeLayout day2_bar = (RelativeLayout) findViewById(R.id.day_2_bar);
             ImageButton day2_arrow = (ImageButton) findViewById(R.id.day_2_arrow);
             day2_bar.setOnClickListener(showPrevious);
-            day2_arrow.setOnClickListener(showPrevious);
+            day2_arrow.setOnClickListener(showPrevious);*/
         }
         else {
-            // Hide flipper.
-            switcher.setVisibility(ViewFlipper.GONE);
             // Set listener on text view button to refresh the program.
             noSessions.setOnClickListener(refreshProgram);
             // Set empty view.
-            ListView day1_list = (ListView) findViewById(R.id.session_list_day_1);
-            day1_list.setEmptyView(findViewById(R.id.no_sessions));
+            ListView session_list = (ListView) findViewById(R.id.session_list);
+            session_list.setEmptyView(findViewById(R.id.no_sessions));
+            // Hide arrows.
+            day_previous_arrow.setVisibility(ImageButton.GONE);
+            day_next_arrow.setVisibility(ImageButton.GONE);
         }
     }
 
@@ -113,8 +119,7 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showNext = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, false));
-            switcher.showNext();
+            //switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, false));
         }
     };
 
@@ -124,8 +129,7 @@ public class SessionList extends BaseActivity {
     private final View.OnClickListener showPrevious = new View.OnClickListener() {
         public void onClick(View v) {
             new AnimationUtils();
-            switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, true));
-            switcher.showPrevious();
+            //switcher.setAnimation(AnimationUtils.makeInAnimation(SessionList.this, true));
         }
     };
 
@@ -150,15 +154,6 @@ public class SessionList extends BaseActivity {
             }
         }
     };
-
-    /**
-     * Get sessions per day.
-     */
-    public void getSessionsPerDay(ListView layout, DatabaseHandler db, Integer day) {
-        sessions = db.getSessions(day);
-        SessionListAdapter adapter = new SessionListAdapter(this, sessions);
-        layout.setAdapter(adapter);
-    }
 
     /**
      * Update task.
@@ -245,8 +240,12 @@ public class SessionList extends BaseActivity {
                                         Speaker speaker = new Speaker();
                                         speaker.setId(jsonSpeaker.getInt("id"));
                                         speaker.setUsername(jsonSpeaker.getString("username"));
-                                        speaker.setFirstName(jsonSpeaker.getString("first_name"));
-                                        speaker.setLastName(jsonSpeaker.getString("last_name"));
+                                        if (!jsonSpeaker.isNull("first_name")) {
+                                            speaker.setFirstName(jsonSpeaker.getString("first_name"));
+                                        }
+                                        if (!jsonSpeaker.isNull("last_name")) {
+                                            speaker.setLastName(jsonSpeaker.getString("last_name"));
+                                        }
                                         if (!jsonSpeaker.isNull("organization")) {
                                             speaker.setOrganisation(jsonSpeaker.getString("organization"));
                                         }

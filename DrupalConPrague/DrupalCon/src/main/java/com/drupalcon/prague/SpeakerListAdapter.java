@@ -70,7 +70,12 @@ public class SpeakerListAdapter extends BaseAdapter implements View.OnClickListe
             holder.speakerId = speaker.getId();
 
             // Name.
-            holder.speaker.setText(speaker.getFirstName() + " " + speaker.getLastName());
+            if (speaker.getFirstName().length() > 0) {
+                holder.speaker.setText(speaker.getFirstName() + ' ' + speaker.getLastName());
+            }
+            else {
+                holder.speaker.setText(speaker.getUsername());
+            }
             holder.speaker.setTypeface(fontFace);
 
             // Set touch listener.

@@ -205,6 +205,7 @@
 
             <LinearLayout
                     android:orientation="vertical"
+                    android:paddingTop="@dimen/global_small_padding"
                     android:id="@+id/speaker_list"
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"

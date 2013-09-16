@@ -52,8 +52,16 @@ public class SessionDetail extends BaseActivity {
 
         // Session level icon.
         ImageView sl = (ImageView) findViewById(R.id.session_level);
-        int LevelIconId = this.getResources().getIdentifier("level_" + session.getLevel(),"drawable", this.getPackageName());
-        sl.setImageResource(LevelIconId);
+        int level = session.getLevel();
+        if (level > 0) {
+            int LevelIconId = this.getResources().getIdentifier("level_" + session.getLevel(),"drawable", this.getPackageName());
+            sl.setImageResource(LevelIconId);
+        }
+        else {
+            sl.setVisibility(ImageView.GONE);
+            TextView slt = (TextView) findViewById(R.id.session_level_text);
+            slt.setVisibility(TextView.GONE);
+        }
 
         // Room.
         TextView sr = (TextView) findViewById(R.id.session_room);
@@ -61,15 +69,23 @@ public class SessionDetail extends BaseActivity {
             sr.setText(session.getRoom());
         }
         else {
+            TextView srt = (TextView) findViewById(R.id.session_room_text);
             sr.setVisibility(TextView.GONE);
+            srt.setVisibility(TextView.GONE);
         }
 
         // Track.
         TextView str = (TextView) findViewById(R.id.session_track);
-        str.setText(session.getTrack());
-        // @todo when the service has been updated.
         ImageView stri = (ImageView) findViewById(R.id.session_track_icon);
-        stri.setImageResource(R.drawable.business);
+        if (session.getTrack().length() > 0) {
+            str.setText(session.getTrack());
+            // @todo when the service has been updated.
+            stri.setImageResource(R.drawable.business);
+        }
+        else {
+            str.setVisibility(TextView.GONE);
+            stri.setVisibility(ImageView.GONE);
+        }
 
         // Description.
         TextView sd = (TextView) findViewById(R.id.session_description);
@@ -90,19 +106,21 @@ public class SessionDetail extends BaseActivity {
         }
 
         // Speakers.
-        SpeakerListAdapter adapter = new SpeakerListAdapter(this, session.getSpeakers());
-        int dp = (int) getResources().getDimension(R.dimen.global_padding);
-        int dp_small = (int) getResources().getDimension(R.dimen.global_small_padding);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(dp, dp_small, dp, dp);
+        if (session.getSpeakers().size() > 0) {
+            SpeakerListAdapter adapter = new SpeakerListAdapter(this, session.getSpeakers());
+            int dp = (int) getResources().getDimension(R.dimen.global_padding);
+            int dp_small = (int) getResources().getDimension(R.dimen.global_small_padding);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(dp, dp_small, dp, dp_small);
 
-        LinearLayout speaker_list = (LinearLayout) findViewById(R.id.speaker_list);
+            LinearLayout speaker_list = (LinearLayout) findViewById(R.id.speaker_list);
 
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View item = adapter.getView(i, null, null);
-            item.setLayoutParams(layoutParams);
-            speaker_list.addView(item);
+            for (int i = 0; i < adapter.getCount(); i++) {
+                View item = adapter.getView(i, null, null);
+                item.setLayoutParams(layoutParams);
+                speaker_list.addView(item);
+            }
         }
 
         // Set fonts and colors.
@@ -110,7 +128,12 @@ public class SessionDetail extends BaseActivity {
         setFontToFuturaMedium(R.id.session_title);
         setFontToPTSansRegular(R.id.session_time);
         setFontToPTSansRegular(R.id.session_room);
+        setFontToPTSansRegular(R.id.session_room_text);
+        setFontToPTSansRegular(R.id.session_level_text);
         setFontToPTSansRegular(R.id.session_favorite_action);
+        setFontToPTSansRegular(R.id.session_description);
+        setFontToPTSansRegular(R.id.session_track);
+
     }
 
     /**

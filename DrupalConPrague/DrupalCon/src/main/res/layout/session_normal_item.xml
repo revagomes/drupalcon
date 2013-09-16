@@ -15,7 +15,8 @@
             android:textSize="@dimen/global_text_size"
             android:textColor="@color/dark_brown"
             android:layout_marginLeft="@dimen/global_left_padding"
-            android:layout_marginTop="@dimen/global_small_padding"
+            android:layout_marginTop="@dimen/global_top_padding"
+            android:layout_marginBottom="@dimen/global_top_padding"
             android:layout_marginRight="@dimen/global_small_padding"
             android:textStyle="bold">
     </TextView>
@@ -29,9 +30,7 @@
             android:textColor="@color/text_dark"
             android:layout_marginLeft="@dimen/global_left_padding"
             android:layout_marginRight="@dimen/global_right_padding"
-            android:layout_marginTop="@dimen/global_small_padding"
-            android:layout_marginBottom="@dimen/global_small_padding"
-            >
+            android:layout_marginBottom="@dimen/global_small_padding">
     </TextView>
 
     <include layout="@layout/separator_white" />
@@ -39,8 +38,7 @@
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:paddingTop="@dimen/global_padding"
-            android:paddingBottom="@dimen/global_padding"
+            android:id="@+id/session_meta_info"
             android:layout_height="wrap_content">
 
         <ImageView
@@ -53,6 +51,8 @@
                 android:layout_alignParentRight="false"
                 android:contentDescription="@string/session_level"
                 android:layout_centerVertical="true"
+                android:paddingTop="@dimen/global_padding"
+                android:paddingBottom="@dimen/global_padding"
                 android:layout_alignParentLeft="true"/>
 
         <TextView
@@ -74,6 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/global_padding"
                 android:background="@null"
+                android:paddingTop="@dimen/global_padding"
+                android:paddingBottom="@dimen/global_padding"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/session_level"
                 android:layout_centerVertical="true"/>

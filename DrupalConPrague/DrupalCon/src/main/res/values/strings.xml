@@ -17,14 +17,6 @@
     <string name="menu_info">About</string>
     <string name="menu_favorites">Your schedule</string>
 
-    <!-- Days - we should make this configurable by using arrays -->
-    <string name="day_1_integer">14</string>
-    <string name="day_2_integer">15</string>
-    <string name="day_1">Dag 1</string>
-    <string name="day_2">Dag 2</string>
-    <string name="day_1_text">SEPTEMBER 22th 2013</string>
-    <string name="day_2_text">SEPTEMBER 23rh 2013</string>
-
     <!-- Program -->
     <string name="no_sessions">No sessions found, click here to download.\n\nYou can always update the schedule by clicking on the icon in the left upper corner when you are on the session list.</string>
     <string name="updating">Schedule</string>
@@ -49,5 +41,14 @@
 
     <!-- Information -->
     <string name="information_text"><![CDATA[DrupalCon is the official conference of the Drupal community, designed to attract an international audience since Drupal became an open source project in 2001. It\'s produced by the Drupal Association and a fabulous group of volunteers from across the globe.<br /><br />This is an open source mobile application for DrupalCon, first built for DrupalCon Prague 2013.<br /><br /><b>Proudly built by</b><br /><br /><a href="https://twitter.com/TimLeytens">@TimLeytens</a><br /><a href="https://twitter.com/swentel">@swentel</a><br /><a href="https://twitter.com/leenvs">@LeenVS</a><br /><br /><b>Source code</b><br /><br />iOS: <a href="http://github.com/TimLeytens/drupalcon">GitHub</a><br />Android: <a href="https://github.com/swentel/drupalcon">GitHub</a><br />]]></string>
+
+    <!-- Days -->
+    <string name="sept_23">Monday</string>
+    <string name="sept_24">Tuesday</string>
+    <string name="sept_25">Wednesday</string>
+    <string name="sept_26">Thursday</string>
+    <string name="sept_27">Friday</string>
+    <string name="day_previous">Previous day</string>
+    <string name="day_next">Next day</string>
 
 </resources>

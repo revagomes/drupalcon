@@ -223,9 +223,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Speaker> getSessionSpeakers(Integer sessionId) {
         SQLiteDatabase db = this.getWritableDatabase();
         List<Speaker> speakerList = new ArrayList<Speaker>();
-        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS_SESSIONS + " INNER JOIN " + TABLE_SPEAKERS;
-        speakersQuery += " WHERE " + TABLE_SPEAKERS + "." + DatabaseHandler.SPEAKERS_KEY_ID  + " = " + TABLE_SPEAKERS_SESSIONS + "." + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SPEAKER_ID;
-        speakersQuery += " AND " + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SESSION_ID + " = " + sessionId + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_FIRSTNAME + " ASC";
+        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS_SESSIONS + " tss INNER JOIN " + TABLE_SPEAKERS + " ts ";
+        speakersQuery += " ON tss." + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SPEAKER_ID  + " = ts." + DatabaseHandler.SPEAKERS_KEY_ID;
+        speakersQuery += " WHERE " + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SESSION_ID + " = " + sessionId + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_USERNAME + " ASC";
 
         Cursor speakerCursor = db.rawQuery(speakersQuery, null);
 
@@ -307,7 +307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Speaker> getSpeakers() {
         SQLiteDatabase db = this.getWritableDatabase();
         List<Speaker> speakerList = new ArrayList<Speaker>();
-        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_FIRSTNAME + " ASC";
+        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_USERNAME + " ASC";
         Cursor speakerCursor = db.rawQuery(speakersQuery, null);
 
         // Loop through all speaker results.

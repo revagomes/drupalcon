@@ -4,8 +4,8 @@ public class Speaker {
 
     int id;
     String username;
-    String firstName;
-    String lastName;
+    String firstName = "";
+    String lastName = "";
     String organisation = "";
     String twitter = "";
     String avatar = "";
