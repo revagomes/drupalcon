@@ -11,7 +11,6 @@
             android:layout_width="@dimen/refresh"
             android:layout_height="@dimen/refresh"
             android:background="@null"
-            android:layout_marginLeft="@dimen/global_small_padding"
             android:contentDescription="@string/header_refresh"
             android:src="@drawable/refresh_states"
             android:scaleType="centerInside"/>

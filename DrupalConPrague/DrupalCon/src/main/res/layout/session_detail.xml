@@ -51,40 +51,21 @@
                     android:paddingRight="@dimen/global_right_padding">
             </TextView>
 
-            <LinearLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:background="@color/light_brown"
+            <TextView
+                    android:id="@+id/session_room"
+                    android:textColor="@color/text_dark"
                     android:layout_width="fill_parent"
-                    android:paddingBottom="@dimen/global_small_padding"
-                    android:layout_marginLeft="@dimen/global_padding"
+                    android:text="The room"
+                    android:background="@color/light_brown"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/global_bottom_padding">
+                    android:textSize="@dimen/global_text_size"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:layout_marginLeft="@dimen/global_padding"
+                    android:paddingLeft="@dimen/global_left_padding"
+                    android:paddingBottom="@dimen/global_bottom_padding"
+                    android:paddingRight="@dimen/global_right_padding">
+            </TextView>
 
-                <TextView
-                        android:id="@+id/session_room_text"
-                        android:textColor="@color/text_dark"
-                        android:text="@string/session_room"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/global_text_size"
-                        android:layout_marginLeft="@dimen/global_padding"
-                        >
-                </TextView>
-
-                <TextView
-                        android:id="@+id/session_room"
-                        android:textColor="@color/text_dark"
-                        android:layout_width="fill_parent"
-                        android:background="@color/light_brown"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/global_text_size"
-                        android:layout_marginRight="@dimen/global_padding"
-                        android:paddingLeft="@dimen/global_small_padding"
-                        android:paddingRight="@dimen/global_right_padding">
-                </TextView>
-
-            </LinearLayout>
 
             <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"

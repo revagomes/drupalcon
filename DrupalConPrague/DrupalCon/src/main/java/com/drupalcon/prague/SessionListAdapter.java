@@ -14,9 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,15 +25,8 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
     private LayoutInflater mInflater;
     private Typeface fontFace;
 
-    private int from;
-    private int to;
-    private Date startHour;
-    private Date endHour;
-    private DateFormat sdf;
-
     private static final int NORMAL = 0;
     private static final int SPECIAL = 1;
-    private static final int SLOTTIME = 2;
 
     public SessionListAdapter(Context context, List<Session> sessions) {
         this.context = context;
@@ -69,12 +59,8 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
     public int getItemViewType(int position) {
         int special = sessions.get(position).getSpecial();
 
-        // Slot item.
-        if (special == 2) {
-            return SLOTTIME;
-        }
-        // Special item (e.g. lunch)
-        else if (special == 1) {
+        // Special item.
+        if (special == 1) {
             return SPECIAL;
         }
         // Normal row item.
@@ -114,14 +100,9 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     holder.session_item = (LinearLayout) convertView.findViewById(R.id.session_item);
                     holder.session_meta_info = (RelativeLayout) convertView.findViewById(R.id.session_meta_info);
                     break;
-                case SLOTTIME:
-                    convertView = mInflater.inflate(R.layout.session_slot_item, null);
-                    holder.time = (TextView) convertView.findViewById(R.id.session_title_time);
-                    break;
                 case SPECIAL:
                     convertView = mInflater.inflate(R.layout.session_special_item, null);
                     holder.title = (TextView) convertView.findViewById(R.id.session_title);
-                    holder.time = (TextView) convertView.findViewById(R.id.session_time);
                     break;
             }
             convertView.setTag(holder);
@@ -139,71 +120,57 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
             holder.title.setText(session.getTitle());
             holder.title.setTypeface(fontFace);
 
-            // We switch on normal and special. Slot time
-            // does not need extra handling.
-            switch (type) {
+            // We need to check for normal alone which get speakers, track and level.
+           if (type == NORMAL) {
 
-                case NORMAL:
-
-                    // Normal sessions also get speakers, hour and favorite button.
-                    String speakers = "";
-                    List<Speaker> speakerList = session.getSpeakers();
-                    for (int i = 0; i < speakerList.size(); i++) {
-                        Speaker speakerItem = speakerList.get(i);
-                        if (i > 0) {
-                            speakers += " - ";
-                        }
-                        if (speakerItem.getFirstName().length() > 0) {
-                            speakers += speakerItem.getFirstName() + ' ' + speakerItem.getLastName();
-                        }
-                        else {
-                            speakers += speakerItem.getUsername();
-                        }
+                String speakers = "";
+                List<Speaker> speakerList = session.getSpeakers();
+                for (int i = 0; i < speakerList.size(); i++) {
+                    Speaker speakerItem = speakerList.get(i);
+                    if (i > 0) {
+                        speakers += " - ";
                     }
-
-                    if (speakers.length() > 0) {
-                        holder.speaker.setText(speakers);
-                        holder.speaker.setTypeface(fontFace);
+                    if (speakerItem.getFirstName().length() > 0) {
+                        speakers += speakerItem.getFirstName() + ' ' + speakerItem.getLastName();
                     }
                     else {
-                        holder.speaker.setVisibility(TextView.GONE);
+                        speakers += speakerItem.getUsername();
                     }
+                }
 
-                    // Track.
-                    if (session.getTrack().length() > 0) {
-                        holder.track.setText(session.getTrack());
-                        holder.track.setTypeface(fontFace);
-                        int trackIcon = context.getResources().getIdentifier(session.getTrack(),"drawable", context.getPackageName());
-                        holder.track_icon.setImageResource(trackIcon);
-                    }
-                    else {
-                        holder.track.setVisibility(TextView.GONE);
-                        holder.track_icon.setVisibility(ImageView.GONE);
-                    }
+                if (speakers.length() > 0) {
+                    holder.speaker.setText(speakers);
+                    holder.speaker.setTypeface(fontFace);
+                }
+                else {
+                    holder.speaker.setVisibility(TextView.GONE);
+                }
 
-                    // Level icon.
-                    int level = session.getLevel();
-                    if (level > 0) {
-                        int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
-                        holder.level.setImageResource(LevelIconId);
-                    }
-                    else {
-                        holder.level.setVisibility(ImageView.GONE);
-                    }
+                // Track.
+                if (session.getTrack().length() > 0) {
+                    String[] textIcon = session.getTrack().split("-");
+                    holder.track.setText(textIcon[0]);
+                    holder.track.setTypeface(fontFace);
+                    int trackIcon = context.getResources().getIdentifier(textIcon[1],"drawable", context.getPackageName());
+                    holder.track_icon.setImageResource(trackIcon);
+                }
+                else {
+                    holder.track.setVisibility(TextView.GONE);
+                    holder.track_icon.setVisibility(ImageView.GONE);
+                }
 
-                    // Set touch listener.
-                    convertView.setOnTouchListener(sessionTouch);
-                    break;
+                // Level icon.
+                int level = session.getLevel();
+                if (level > 0) {
+                    int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
+                    holder.level.setImageResource(LevelIconId);
+                }
+                else {
+                    holder.level.setVisibility(ImageView.GONE);
+                }
 
-                case SPECIAL:
-                    from = session.getStartDate();
-                    to = session.getEndDate();
-                    sdf = new SimpleDateFormat("kk:mm");
-                    startHour = new Date((long)from * 1000);
-                    endHour = new Date((long)to * 1000);
-                    holder.time.setText(sdf.format(startHour) + " - " + sdf.format(endHour));
-                    holder.time.setTypeface(fontFace);
-                    break;
+                // Set touch listener.
+                convertView.setOnTouchListener(sessionTouch);
             }
         }
 

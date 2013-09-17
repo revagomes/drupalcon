@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -54,14 +53,14 @@ public class SessionList extends BaseActivity {
         // Set header title.
         setTextViewString(R.id.header_title, R.string.menu_program);
 
-        // Set fonts and colors.
+        // Set fonts.
         setFontToFuturaMedium(R.id.header_title);
 
-        // Get flipper, refresh and no events.
+        // Get refresh and no events.
         ImageButton refresh = (ImageButton) findViewById(R.id.refresh);
         TextView noSessions = (TextView) findViewById(R.id.no_sessions);
 
-        // Always set refresh listener on the button.
+        // Set refresh listener on the button.
         refresh.setOnClickListener(refreshProgram);
 
         // Arrow buttons.
@@ -83,16 +82,11 @@ public class SessionList extends BaseActivity {
                 get_day = extras.getInt("get_day", 0);
             }
 
-            Log.d("GETTING DAY", "" + get_day);
-
             if (get_day == 0) {
-                Log.d("GETTING DAY OK", "" + get_day);
                 Time today = new Time(Time.getCurrentTimezone());
                 today.setToNow();
                 int day = today.monthDay;
-                Log.d("GETTING DAY ", "day: " + day);
                 get_day = getDay(day, true, SessionList.this);
-                Log.d("GETTING DAY ", "get day: " + get_day);
             }
 
             String day_text = getDateFromInteger(get_day, true, this);
@@ -246,18 +240,16 @@ public class SessionList extends BaseActivity {
                             if (!jsonSession.isNull("track")) {
                                 // We only have 1 track for DrupalCon events, but
                                 // our service currently still stores it in an array.
+                                String track = "";
                                 JSONArray tracks = jsonSession.getJSONArray("track");
                                 for (int j = 0; j < tracks.length(); j++) {
-                                    session.setTrack(tracks.getString(0));
+                                    track = tracks.getString(0).trim();
                                 }
-                            }
-
-                            // @todo fixme when service has more data.
-                            if (i == 3) {
-                                session.setTrack("coding");
-                            }
-                            else if (i == 4) {
-                                session.setTrack("sitebuilding");
+                                if (track.length() > 0) {
+                                    String track_icon = BaseActivity.getIconForTrack(track, getApplicationContext());
+                                    track += "-" + track_icon;
+                                }
+                                session.setTrack(track);
                             }
 
                             // Save session

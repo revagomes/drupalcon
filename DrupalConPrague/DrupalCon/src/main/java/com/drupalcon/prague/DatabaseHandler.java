@@ -170,12 +170,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String sessionsQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SESSIONS;
         sessionsQuery += " ts LEFT JOIN " + DatabaseHandler.TABLE_FAVORITES + " tf ON ts." + DatabaseHandler.SESSIONS_KEY_ID + " = tf." + DatabaseHandler.FAVORITES_KEY_ID;
         sessionsQuery += " WHERE " + DatabaseHandler.SESSIONS_KEY_DAY + " = " + day;
-        sessionsQuery += " ORDER BY " + DatabaseHandler.SESSIONS_KEY_START_DATE + " ASC, " + DatabaseHandler.SESSIONS_KEY_TITLE + " ASC";
+        sessionsQuery += " ORDER BY " + DatabaseHandler.SESSIONS_KEY_END_DATE + " ASC, " + DatabaseHandler.SESSIONS_KEY_TITLE + " ASC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor sessionCursor = db.rawQuery(sessionsQuery, null);
-
-        int currentDate = 0;
 
         // Loop through all session results.
         if (sessionCursor.moveToFirst()) {
@@ -225,7 +223,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Speaker> speakerList = new ArrayList<Speaker>();
         String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS_SESSIONS + " tss INNER JOIN " + TABLE_SPEAKERS + " ts ";
         speakersQuery += " ON tss." + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SPEAKER_ID  + " = ts." + DatabaseHandler.SPEAKERS_KEY_ID;
-        speakersQuery += " WHERE " + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SESSION_ID + " = " + sessionId + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_USERNAME + " ASC";
+        speakersQuery += " WHERE " + DatabaseHandler.SPEAKERS_SESSIONS_KEY_SESSION_ID + " = " + sessionId + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_FIRSTNAME + " ASC";
 
         Cursor speakerCursor = db.rawQuery(speakersQuery, null);
 
@@ -307,7 +305,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Speaker> getSpeakers() {
         SQLiteDatabase db = this.getWritableDatabase();
         List<Speaker> speakerList = new ArrayList<Speaker>();
-        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_USERNAME + " ASC";
+        String speakersQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SPEAKERS + " ORDER BY " + DatabaseHandler.SPEAKERS_KEY_FIRSTNAME + " ASC";
         Cursor speakerCursor = db.rawQuery(speakersQuery, null);
 
         // Loop through all speaker results.

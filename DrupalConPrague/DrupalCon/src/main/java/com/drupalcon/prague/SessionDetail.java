@@ -63,17 +63,16 @@ public class SessionDetail extends BaseActivity {
             sr.setText(session.getRoom());
         }
         else {
-            TextView srt = (TextView) findViewById(R.id.session_room_text);
             sr.setVisibility(TextView.GONE);
-            srt.setVisibility(TextView.GONE);
         }
 
         // Track.
         TextView str = (TextView) findViewById(R.id.session_track);
         ImageView stri = (ImageView) findViewById(R.id.session_track_icon);
         if (session.getTrack().length() > 0) {
-            str.setText(session.getTrack());
-            int trackIcon = this.getResources().getIdentifier(session.getTrack(),"drawable", this.getPackageName());
+            String[] textIcon = session.getTrack().split("-");
+            str.setText(textIcon[0]);
+            int trackIcon = this.getResources().getIdentifier(textIcon[1],"drawable", this.getPackageName());
             stri.setImageResource(trackIcon);
         }
         else {
@@ -122,7 +121,6 @@ public class SessionDetail extends BaseActivity {
         setFontToFuturaMedium(R.id.session_title);
         setFontToPTSansRegular(R.id.session_time);
         setFontToPTSansRegular(R.id.session_room);
-        setFontToPTSansRegular(R.id.session_room_text);
         setFontToPTSansRegular(R.id.session_level_text);
         setFontToPTSansRegular(R.id.session_favorite_action);
         setFontToPTSansRegular(R.id.session_description);

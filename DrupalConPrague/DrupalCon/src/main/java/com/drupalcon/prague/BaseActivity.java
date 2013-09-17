@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 public class BaseActivity extends Activity {
 
-    public boolean clickRefreshButton = false;
     public boolean showFavoritesButton = true;
     public static int index;
     public static int[] date_int_resources;
@@ -165,22 +164,14 @@ public class BaseActivity extends Activity {
      * Checks whether we have a previous day.
      */
     public static boolean hasPreviousDay() {
-        if (index > 0) {
-            return true;
-        }
-
-        return false;
+        return index > 0;
     }
 
     /**
      * Checks whether we have a next day.
      */
     public static boolean hasNextDay() {
-        if (index >= 0 && index != dates_count) {
-            return true;
-        }
-
-        return false;
+        return index >= 0 && index != dates_count;
     }
 
     /**
@@ -207,5 +198,29 @@ public class BaseActivity extends Activity {
         }
 
         return date_text;
+    }
+
+    /**
+     * Returns the icon id for a track.
+     */
+    public static String getIconForTrack(String track, Context context) {
+
+        String track_icon = "";
+        int track_index = -1;
+        String[] track_resources = context.getResources().getStringArray(R.array.tracks_full);
+        String[] track_icon_resources = context.getResources().getStringArray(R.array.tracks_image);
+
+        for (int i = 0; i < track_resources.length; i++) {
+            if (track_resources[i].equals(track)) {
+                track_index = i;
+                break;
+            }
+        }
+
+        if (track_index != -1) {
+            track_icon = track_icon_resources[track_index];
+        }
+
+        return track_icon;
     }
 }

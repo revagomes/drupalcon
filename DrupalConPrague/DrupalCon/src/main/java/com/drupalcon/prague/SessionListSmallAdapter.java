@@ -99,12 +99,7 @@ public class SessionListSmallAdapter extends BaseAdapter implements OnClickListe
             DateFormat sdf = new SimpleDateFormat("kk:mm");
             Date startHour = new Date((long)from * 1000);
             Date endHour = new Date((long)to * 1000);
-            if (session.getDay() == 14) {
-                Date = "September 14th";
-            }
-            else {
-                Date = "September 15th";
-            }
+            Date = BaseActivity.getDateFromInteger(session.getDay(), false, context);
             holder.time.setText(Date + " | " + sdf.format(startHour) + " - " + sdf.format(endHour));
             holder.time.setTypeface(fontFace);
 

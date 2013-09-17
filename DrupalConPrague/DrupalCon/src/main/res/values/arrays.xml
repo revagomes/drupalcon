@@ -20,11 +20,23 @@
     <string-array name="tracks_full">
         <item>Site Building</item>
         <item>Coding + Development</item>
+        <item>Business + Strategy</item>
+        <item>DevOps</item>
+        <item>Labs</item>
+        <item>Frontend</item>
+        <item>Core Conversations</item>
+        <item>Business Showcase</item>
     </string-array>
 
     <string-array name="tracks_image">
         <item>sitebuilding</item>
         <item>coding</item>
+        <item>business</item>
+        <item>devops</item>
+        <item>labs</item>
+        <item>html5</item>
+        <item>core</item>
+        <item>showcase</item>
     </string-array>
 
 </resources>
