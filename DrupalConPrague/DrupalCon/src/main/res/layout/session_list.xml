@@ -35,7 +35,7 @@
                         <ImageButton
                                 android:id="@+id/previous_day_arrow"
                                 android:background="@null"
-                                android:src="@drawable/arrow_left"
+                                android:src="@drawable/previous_day_states"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:contentDescription="@string/day_previous"
@@ -53,7 +53,7 @@
                         <ImageButton
                                 android:id="@+id/next_day_arrow"
                                 android:background="@null"
-                                android:src="@drawable/arrow_right"
+                                android:src="@drawable/next_day_states"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:contentDescription="@string/day_next"
