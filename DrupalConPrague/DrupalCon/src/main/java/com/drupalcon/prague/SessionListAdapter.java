@@ -132,6 +132,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     }
                 }
 
+                holder.speaker.setVisibility(View.VISIBLE);
                 if (speakers.length() > 0) {
                     holder.speaker.setText(speakers);
                     holder.speaker.setTypeface(fontFace);
@@ -141,6 +142,8 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 }
 
                 // Track.
+                holder.track.setVisibility(View.VISIBLE);
+                holder.track_icon.setVisibility(View.VISIBLE);
                 if (session.getTrack().length() > 0) {
                     String[] textIcon = session.getTrack().split("-");
                     holder.track.setText(textIcon[0]);
@@ -154,6 +157,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 }
 
                 // Level icon.
+                holder.level.setVisibility(View.VISIBLE);
                 if (session.getLevel() > 0) {
                     int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(), "drawable", context.getPackageName());
                     holder.level.setImageResource(LevelIconId);
