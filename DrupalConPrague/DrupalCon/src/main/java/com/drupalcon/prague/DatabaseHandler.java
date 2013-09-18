@@ -170,7 +170,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String sessionsQuery = "SELECT * FROM " + DatabaseHandler.TABLE_SESSIONS;
         sessionsQuery += " ts LEFT JOIN " + DatabaseHandler.TABLE_FAVORITES + " tf ON ts." + DatabaseHandler.SESSIONS_KEY_ID + " = tf." + DatabaseHandler.FAVORITES_KEY_ID;
         sessionsQuery += " WHERE " + DatabaseHandler.SESSIONS_KEY_DAY + " = " + day;
-        sessionsQuery += " ORDER BY " + DatabaseHandler.SESSIONS_KEY_END_DATE + " ASC, " + DatabaseHandler.SESSIONS_KEY_START_DATE + " ASC," + DatabaseHandler.SESSIONS_KEY_TITLE + " ASC";
+        sessionsQuery += " ORDER BY " + DatabaseHandler.SESSIONS_KEY_END_DATE + " ASC, " + DatabaseHandler.SESSIONS_KEY_START_DATE + " ASC," + DatabaseHandler.SESSIONS_KEY_SPECIAL + " DESC, " + DatabaseHandler.SESSIONS_KEY_TRACK + " DESC," + DatabaseHandler.SESSIONS_KEY_TITLE + " ASC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor sessionCursor = db.rawQuery(sessionsQuery, null);

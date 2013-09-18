@@ -66,7 +66,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
         }
     }
 
-    public static class ViewHolder {
+    static class ViewHolder {
         public int sessionId;
         public TextView title;
         public TextView speaker;
@@ -115,7 +115,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
             holder.title.setTypeface(fontFace);
 
             // We need to check for normal alone which get speakers, track and level.
-           if (type == NORMAL) {
+           if (session.getSpecial() == 0) {
 
                 String speakers = "";
                 List<Speaker> speakerList = session.getSpeakers();

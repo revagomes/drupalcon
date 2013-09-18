@@ -29,7 +29,7 @@ import java.util.List;
 public class SessionList extends BaseActivity {
 
     // The data.
-    public String dataUrl = "http://drupalcon-prague.timleytens.be:8080/api/timeslots/list.json";
+    public String dataUrl = "http://drupalcon-prague.timleytens.be/api/timeslots/list.json";
 
     // The filename to save the list to.
     public static String fileName = "list.json";
