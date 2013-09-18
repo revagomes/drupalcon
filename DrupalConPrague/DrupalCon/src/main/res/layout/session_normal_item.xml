@@ -38,8 +38,8 @@
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:id="@+id/session_meta_info"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/session_meta_info">
 
         <ImageView
                 android:id="@+id/session_track_icon"

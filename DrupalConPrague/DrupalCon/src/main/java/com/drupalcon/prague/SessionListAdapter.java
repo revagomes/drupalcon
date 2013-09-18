@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -52,15 +51,13 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
 
     @Override
     public int getViewTypeCount() {
-        return 3;
+        return 2;
     }
 
     @Override
     public int getItemViewType(int position) {
-        int special = sessions.get(position).getSpecial();
-
         // Special item.
-        if (special == 1) {
+        if (sessions.get(position).getSpecial() == 1) {
             return SPECIAL;
         }
         // Normal row item.
@@ -78,7 +75,6 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
         public ImageView track_icon;
         public ImageView level;
         public LinearLayout session_item;
-        public RelativeLayout session_meta_info;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -98,7 +94,6 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     holder.track_icon = (ImageView) convertView.findViewById(R.id.session_track_icon);
                     holder.level = (ImageView) convertView.findViewById(R.id.session_level);
                     holder.session_item = (LinearLayout) convertView.findViewById(R.id.session_item);
-                    holder.session_meta_info = (RelativeLayout) convertView.findViewById(R.id.session_meta_info);
                     break;
                 case SPECIAL:
                     convertView = mInflater.inflate(R.layout.session_special_item, null);

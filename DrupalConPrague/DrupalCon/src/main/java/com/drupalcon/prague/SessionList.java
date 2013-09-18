@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +42,7 @@ public class SessionList extends BaseActivity {
     ProgressDialog dialog;
     public static int siteStatus = 200;
     public List<Session> sessions;
+    public ListView sessionList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,10 +95,10 @@ public class SessionList extends BaseActivity {
             setFontToFuturaMedium(R.id.day_text);
 
             // List sessions.
-            ListView session_list = (ListView) findViewById(R.id.session_list);
+            sessionList = (ListView) findViewById(R.id.session_list);
             sessions = db.getSessions(get_day);
             SessionListAdapter adapter = new SessionListAdapter(this, sessions);
-            session_list.setAdapter(adapter);
+            sessionList.setAdapter(adapter);
 
             // Set listeners on day bars and arrows and/or remove accordingly.
             if (hasPreviousDay()) {
@@ -132,7 +132,6 @@ public class SessionList extends BaseActivity {
      */
     private final View.OnClickListener showNext = new View.OnClickListener() {
         public void onClick(View v) {
-            new AnimationUtils();
             int nextDay = get_day + 1;
             Intent sessionList = new Intent(getBaseContext(), SessionList.class);
             sessionList.putExtra("get_day", nextDay);
@@ -146,7 +145,6 @@ public class SessionList extends BaseActivity {
      */
     private final View.OnClickListener showPrevious = new View.OnClickListener() {
         public void onClick(View v) {
-            new AnimationUtils();
             int previousDay = get_day - 1;
             Intent sessionList = new Intent(getBaseContext(), SessionList.class);
             sessionList.putExtra("get_day", previousDay);
