@@ -70,14 +70,13 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
         public int sessionId;
         public TextView title;
         public TextView speaker;
-        public TextView time;
         public TextView track;
         public ImageView track_icon;
         public ImageView level;
         public LinearLayout session_item;
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         int type = getItemViewType(position);
         Session session = sessions.get(position);
@@ -146,7 +145,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                     String[] textIcon = session.getTrack().split("-");
                     holder.track.setText(textIcon[0]);
                     holder.track.setTypeface(fontFace);
-                    int trackIcon = context.getResources().getIdentifier(textIcon[1],"drawable", context.getPackageName());
+                    int trackIcon = context.getResources().getIdentifier(textIcon[1].trim(),"drawable", context.getPackageName());
                     holder.track_icon.setImageResource(trackIcon);
                 }
                 else {
@@ -155,9 +154,8 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 }
 
                 // Level icon.
-                int level = session.getLevel();
-                if (level > 0) {
-                    int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(),"drawable", context.getPackageName());
+                if (session.getLevel() > 0) {
+                    int LevelIconId = context.getResources().getIdentifier("level_" + session.getLevel(), "drawable", context.getPackageName());
                     holder.level.setImageResource(LevelIconId);
                 }
                 else {

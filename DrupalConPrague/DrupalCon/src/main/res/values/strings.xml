@@ -28,10 +28,7 @@
     <string name="favorite_add">Add to your schedule</string>
     <string name="favorite_remove">Remove from your schedule</string>
     <string name="session_level">Experience level</string>
-    <string name="session_room">Room:</string>
-
-    <!-- Speakers -->
-    <string name="speaker_avatar">Avatar</string>
+    <string name="session_track">Track</string>
 
     <!-- Location -->
     <string name="location_map_link">Interactive map</string>

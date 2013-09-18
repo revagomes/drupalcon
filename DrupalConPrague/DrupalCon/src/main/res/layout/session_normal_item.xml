@@ -49,7 +49,7 @@
                 android:layout_marginRight="@dimen/global_small_padding"
                 android:background="@null"
                 android:layout_alignParentRight="false"
-                android:contentDescription="@string/session_level"
+                android:contentDescription="@string/session_track"
                 android:layout_centerVertical="true"
                 android:paddingTop="@dimen/global_padding"
                 android:paddingBottom="@dimen/global_padding"
