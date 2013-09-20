@@ -74,7 +74,6 @@ public class SessionListSmallAdapter extends BaseAdapter implements OnClickListe
 
         if (convertView == null) {
             holder = new ViewHolder();
-            holder.sessionId = session.getId();
 
             convertView = mInflater.inflate(R.layout.session_small_item, null);
             holder.title = (TextView) convertView.findViewById(R.id.session_title);
@@ -87,6 +86,9 @@ public class SessionListSmallAdapter extends BaseAdapter implements OnClickListe
         }
 
         if (session != null) {
+
+            // Id.
+            holder.sessionId = session.getId();
 
             // Title.
             holder.title.setText(session.getTitle());
