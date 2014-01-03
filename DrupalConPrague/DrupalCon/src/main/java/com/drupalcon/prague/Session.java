@@ -4,10 +4,21 @@ import java.util.List;
 
 public class Session {
 
-    int id;
+    int nid;
+    int vid;
+    int uuid;
+    int uid;
     String title;
     String description = "";
+    String type = "";
+    int created;
+    int changed;
+    int status = 0;
+    int promoted = 0;
+    int sticky = 0;
     int special = 0;
+
+    // Others
     int startDate;
     int endDate;
     int level = 0;
@@ -21,44 +32,64 @@ public class Session {
     public Session() {}
 
     // Full constructor, without speaker list.
-    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, String track, int favorite) {
-        this.id = id;
+    public Session(int nid, int vid, int uuid, int uid, String title, String description,  String type, int created, int changed, int status, int promoted, int sticky) {
+        this.nid = nid;
+        this.vid = vid;
+        this.uuid = uuid;
+        this.uid = uid;
         this.title = title;
         this.description = description;
-        this.special = special;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.level = level;
-        this.day = day;
-        this.favorite = favorite;
-        this.room = room;
-        this.track = track;
-    }
+        this.type = type;
+        this.created = created;
+        this.changed = changed;
+        this.status = status;
+        this.promoted = promoted;
+        this.sticky = sticky;
 
-    // Full constructor, including speaker list.
-    public Session(int id, String title, String description, int special, int startDate, int endDate, int level, int day, String room, String track, int favorite, List<Speaker> speakerList) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.special = special;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.level = level;
-        this.day = day;
-        this.room = room;
-        this.track = track;
-        this.favorite = favorite;
-        this.speakerList = speakerList;
+        // other defaults
+        this.special = 0;
+        this.startDate = 1379919600;
+        this.endDate = 1379942100;
+        this.level = 1;
+        this.day = 24;
+        this.room = "North Hall · Exove";
+        this.track = "Site Building";
+        this.favorite = 1;
+        //this.speakerList = speakerList;
     }
-
+    
     public int getId() {
-        return this.id;
+        return this.nid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int nid) {
+        this.nid = nid;
     }
 
+    public int getVid() {
+        return this.vid;
+    }
+
+    public void setVid(int vid) {
+        this.vid = vid;
+    }
+    
+    public int getUid() {
+        return this.uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+    
+    public int getUuid() {
+        return this.uuid;
+    }
+
+    public void setUuid(int uuid) {
+        this.uuid = uuid;
+    }
+    
     public String getTitle() {
         return this.title;
     }
@@ -75,6 +106,55 @@ public class Session {
         this.description = description;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }    
+    
+    public int getCreated() {
+        return this.created;
+    }
+
+    public void setCreated(int created) {
+        this.created = created;
+    }
+    
+    public int getChanged() {
+        return this.changed;
+    }
+
+    public void setChanged(int changed) {
+        this.changed = changed;
+    }
+    
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    public int getPromoted() {
+        return this.promoted;
+    }
+
+    public void setPromoted(int promoted) {
+        this.promoted = promoted;
+    }
+    
+    public int getSticky() {
+        return this.sticky;
+    }
+
+    public void setSticky(int sticky) {
+        this.sticky = sticky;
+    }
+    
+    // Others
     public int getSpecial() {
         return this.special;
     }
@@ -138,9 +218,9 @@ public class Session {
     public void setTrack(String track) {
         this.track = track;
     }
-
+    
     public List<Speaker> getSpeakers() {
         return this.speakerList;
     }
-
+    
 }
