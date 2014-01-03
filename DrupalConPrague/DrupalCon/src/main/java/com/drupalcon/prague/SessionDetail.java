@@ -99,7 +99,7 @@ public class SessionDetail extends BaseActivity {
         }
 
         // Speakers.
-        if (session.getSpeakers().size() > 0) {
+        /*if (session.getSpeakers().size() > 0) {
             SpeakerListAdapter adapter = new SpeakerListAdapter(this, session.getSpeakers());
             int dp = (int) getResources().getDimension(R.dimen.global_padding);
             int dp_small = (int) getResources().getDimension(R.dimen.global_small_padding);
@@ -114,7 +114,7 @@ public class SessionDetail extends BaseActivity {
                 item.setLayoutParams(layoutParams);
                 speaker_list.addView(item);
             }
-        }
+        }*/
 
         // Set fonts and colors.
         setFontToFuturaMedium(R.id.header_title);

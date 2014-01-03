@@ -88,7 +88,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 case NORMAL:
                     convertView = mInflater.inflate(R.layout.session_normal_item, null);
                     holder.title = (TextView) convertView.findViewById(R.id.session_title);
-                    holder.speaker = (TextView) convertView.findViewById(R.id.session_speakers);
+                    //holder.speaker = (TextView) convertView.findViewById(R.id.session_speakers);
                     holder.track = (TextView) convertView.findViewById(R.id.session_track);
                     holder.track_icon = (ImageView) convertView.findViewById(R.id.session_track_icon);
                     holder.level = (ImageView) convertView.findViewById(R.id.session_level);
@@ -117,7 +117,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
             // We need to check for normal alone which get speakers, track and level.
            if (session.getSpecial() == 0) {
 
-                String speakers = "";
+                /*String speakers = "";
                 List<Speaker> speakerList = session.getSpeakers();
                 for (int i = 0; i < speakerList.size(); i++) {
                     Speaker speakerItem = speakerList.get(i);
@@ -139,7 +139,7 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
                 }
                 else {
                     holder.speaker.setVisibility(TextView.GONE);
-                }
+                }*/
 
                 // Track.
                 holder.track.setVisibility(View.VISIBLE);
@@ -185,14 +185,14 @@ public class SessionListAdapter extends BaseAdapter implements OnClickListener {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     holder.title.setTextColor(context.getResources().getColor(R.color.white));
-                    holder.speaker.setTextColor(context.getResources().getColor(R.color.white));
+                    //holder.speaker.setTextColor(context.getResources().getColor(R.color.white));
                     holder.track.setTextColor(context.getResources().getColor(R.color.white));
                     holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.press_row));
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     holder.title.setTextColor(context.getResources().getColor(R.color.dark_brown));
-                    holder.speaker.setTextColor(context.getResources().getColor(R.color.text_dark));
+                    //holder.speaker.setTextColor(context.getResources().getColor(R.color.text_dark));
                     holder.track.setTextColor(context.getResources().getColor(R.color.text_dark));
                     holder.session_item.setBackgroundColor(context.getResources().getColor(R.color.light_brown));
                     if (action == MotionEvent.ACTION_UP) {
