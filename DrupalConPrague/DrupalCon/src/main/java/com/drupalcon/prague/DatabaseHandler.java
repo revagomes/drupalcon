@@ -365,7 +365,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sessionCursor.getInt(9),
                         sessionCursor.getInt(10),
                         sessionCursor.getInt(11)
-                    );
+                );
 
                 sessionList.add(session);
             }
