@@ -26,13 +26,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import android.util.Log;
+
 public class SessionList extends BaseActivity {
 
     // The data.
-    public String dataUrl = "http://drupalcon-prague.timleytens.be/api/timeslots/list.json";
+    //public String dataUrl = "http://drupalcon-prague.timleytens.be/api/timeslots/list.json";
+    public String dataUrl = "http://six-gs.com/d8/admin/content/node/json";
 
     // The filename to save the list to.
-    public static String fileName = "list.json";
+    public static String fileName = "json";
 
     // Number of sessions.
     public int numberOfSessions = 0;
@@ -218,7 +221,34 @@ public class SessionList extends BaseActivity {
 
                             // Create new session object.
                             Session session = new Session();
+                            
+                            // Nid.
+                            if (!jsonSession.isNull("nid")) {
+                                // We only have 1 track for DrupalCon events, but
+                                // our service currently still stores it in an array.
+                                Integer nid = 0;
+                                JSONArray nids = jsonSession.getJSONArray("nid");
+                                JSONObject jsonNid = nids.getJSONObject(0);
+                                nid = jsonNid.getInt("value");
+                                session.setId(nid);
+                            }
+
+                            // Title.
+                            if (!jsonSession.isNull("title")) {
+                                // We only have 1 track for DrupalCon events, but
+                                // our service currently still stores it in an array.
+                                String title = "";
+                                JSONArray titles = jsonSession.getJSONArray("title");
+                                JSONObject jsonTitle = titles.getJSONObject(0);
+                                title = jsonTitle.getString("value").trim();
+                                session.setTitle(title);
+                            }
+
+                            // Save session
+                            handler.insertSession(session);
+                            /*
                             session.setId(jsonSession.getInt("id"));
+
                             session.setTitle(jsonSession.getString("title"));
                             if (!jsonSession.isNull("description")) {
                                 session.setDescription(jsonSession.getString("description"));
@@ -292,7 +322,7 @@ public class SessionList extends BaseActivity {
                                         handler.insertSpeakerSession(session.getId(), speaker.getId());
                                     }
                                 }
-                            }
+                            }*/
 
                             // Notify dialog.
                             int update = (count*100/numberOfSessions);
@@ -304,6 +334,7 @@ public class SessionList extends BaseActivity {
                     catch (Exception ignored) {}
                 }
                 else {
+                	Log.i("Log message by yanniboi", Integer.toString(siteStatus));
                     return "servicedown";
                 }
             }
@@ -320,6 +351,7 @@ public class SessionList extends BaseActivity {
 
         @Override
         protected void onPostExecute(String sResponse) {
+
             if (sResponse.equals("servicedown")) {
                 serviceDown(dialog);
             }
@@ -370,6 +402,9 @@ public class SessionList extends BaseActivity {
 
             URL downloadFileUrl = new URL(dataUrl);
             HttpURLConnection httpConnection = (HttpURLConnection) downloadFileUrl.openConnection();
+            httpConnection.setRequestProperty("Accept", "application/json");
+            //Log.i("ResponseMethod", httpConnection.getContentType());
+
             siteStatus = httpConnection.getResponseCode();
             if (siteStatus == 200) {
                 InputStream inputStream = httpConnection.getInputStream();
@@ -402,6 +437,7 @@ public class SessionList extends BaseActivity {
         }
 
         Toast.makeText(SessionList.this, getString(R.string.service_offline), Toast.LENGTH_LONG).show();
+
     }
 
     /**
